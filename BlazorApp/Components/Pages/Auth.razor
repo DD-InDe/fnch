@@ -1,0 +1,31 @@
+﻿@page "/"
+<PageTitle>Вход в систему</PageTitle>
+
+<form method="post"
+      class="vertical"
+      @onsubmit="Callback"
+      @formname="auth-form">
+    <input type="text"
+           required
+           @bind="_login"
+           placeholder="ЛОГИН"/>
+    <input type="text"
+           required
+           @bind="_password"
+           placeholder="ПАРОЛЬ"/>
+    <input type="submit"
+           value="Войти"/>
+</form>
+
+@code {
+    string _login { get; set; } = "";
+    string _password { get; set; } = "";
+
+    private void Callback()
+    {
+        if (_password.Contains(_password.Any(c=>c.)))
+        {
+        }
+    }
+
+}

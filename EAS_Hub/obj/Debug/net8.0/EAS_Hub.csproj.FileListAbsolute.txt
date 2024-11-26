@@ -1,0 +1,14 @@
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\bin\Debug\net8.0\EAS_Hub.deps.json
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\bin\Debug\net8.0\EAS_Hub.runtimeconfig.json
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\bin\Debug\net8.0\EAS_Hub.dll
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\bin\Debug\net8.0\EAS_Hub.pdb
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.csproj.AssemblyReference.cache
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.AssemblyInfoInputs.cache
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.AssemblyInfo.cs
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.csproj.CoreCompileInputs.cache
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.dll
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\refint\EAS_Hub.dll
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.pdb
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\EAS_Hub.genruntimeconfig.cache
+C:\Users\alena\RiderProjects\Projects_ForFinal\EAS-Full-Project\EAS_Hub\obj\Debug\net8.0\ref\EAS_Hub.dll

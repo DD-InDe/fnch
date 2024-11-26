@@ -1,0 +1,92 @@
+﻿@page "/info-module/mode={Mode}/{ModuleId:int}"
+
+<div class="vertical-div">
+    <label class="label-message"
+           @onclick="() => _message = string.Empty">
+        @_message
+    </label>
+    @if (_loaded)
+    {
+        <div class="vertical-div border-div">
+            <h3>Общая информация</h3>
+
+            <label>Название: @_module.Name</label>
+            <label>Срок прохождения в днях: @_module.CompleteDeadline</label>
+            <label>Источник данных: @(_module.Source ?? String.Empty)</label>
+            <label>Ответственное лицо: @_module.ResponsibleEmployee.FullName</label>
+            <label>Должности: </label>
+            <div class="vertical-div">
+                @foreach (var item in _positions)
+                {
+                    <li>@item.Name</li>
+                }
+            </div>
+            <label>Предыдущий модуль: @((_module.Previous ?? new()).Name ?? String.Empty)</label>
+            @if (Mode == "ACCEPT")
+            {
+                <form method="post"
+                      @onsubmit="RejectModule"
+                      @formname="reject-form">
+                    <AntiforgeryToken/>
+
+                    <input id="reject-why" @bind="_why"
+                           placeholder="Причина"
+                           required
+                           type="text"/>
+                    <input id="reject-problems" @bind="_problems"
+                           placeholder="Замечания"
+                           required
+                           type="text"/>
+                    <input id="reject-days" @bind="_days"
+                           required
+                           placeholder="Сроки исправления (в днях)"
+                           type="number"/>
+                    <input id="reject-button" type="submit"
+                           value="Отклонить"/>
+                </form>
+                    <input id="access-button" @onclick="AccessModule" type="button"
+                           value="Согласовать"/>
+            }
+        </div>
+        <div class="vertical-div">
+            <h3 > Мероприятия </h3 >
+            @foreach (var item in _events)
+            {
+                <li>@item.Name - @item.Description (@item.Type.Name)</li>
+            }
+        </div>
+        <div class="vertical-div">
+            <h3 > Тестирования </h3 >
+
+            @foreach (var item in _questions)
+            {
+                <li>@item.Text - @item.Answer (@item.Testing.Type.Name)</li>
+            }
+        </div>
+        <div class="vertical-div">
+            <h3 > Материалы </h3 >
+
+            @foreach (var item in _materials)
+            {
+                <li>@item.MaterialName</li>
+            }
+        </div>
+    }
+    else
+    {
+        <h4>нет данных</h4>
+    }
+</div>
+
+<style>
+    .border-div {
+        border: black solid 1px;
+    }
+
+    .label-message {
+        position: fixed;
+        top: 10px;
+        right: 30px;
+        background: gray;
+    }
+</style>

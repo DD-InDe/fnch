@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\EAS_API.props" />
+</Project>

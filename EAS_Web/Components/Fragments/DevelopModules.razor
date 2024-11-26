@@ -1,0 +1,54 @@
+﻿<div class="vertical-div">
+    <h3>Модули в разработке</h3>
+
+    <input @oninput="ChangeSearch"
+           id="search-input"
+           type="text"/>
+    <select @onchange="ChangeStatus"
+            id="status">
+        <option value="0"
+                selected>
+            Все
+        </option>
+        @if (statusList != null)
+        {
+            @foreach (var status in statusList)
+            {
+                <option value="@status.Id">@status.Name</option>
+            }
+        }
+    </select>
+    <label>
+        Архив:
+        <input id="archive"
+               @onchange="ChangeCheck"
+               type="checkbox"/>
+    </label>
+
+    @if (modules != null)
+    {
+        @if (modules.Count != 0)
+        {
+            @foreach (var module in modules)
+            {
+                <div class="vertical-div"
+                     style="border: black solid 1px;background-color: @StatusColor(module); color: black">
+                    <label>Название: @(module.Name ?? "без названия")</label>
+                    <label>Дата создания: @module.DateCreate</label>
+                    @if (module.StatusId is 1 or 2)
+                    {
+                        <a href="/develop-module/@module.Id">Редактировать</a>
+                    }
+                    else
+                    {
+                        <a href="/info-module/mode=VIEW/@module.Id">Информация</a>
+                    }
+                </div>
+            }
+        }
+        else
+        {
+            <em>Данных нет</em>
+        }
+    }
+</div>

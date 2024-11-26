@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "Hash": "cpi98PJMSwpCYZf75zn6f+0KlQrb+bIc1oF7NtquqpQ=",
+  "Source": "EAS_API",
+  "BasePath": "_content/EAS_API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\alena\\.nuget\\packages\\oxyplot.blazor\\2.5.9\\staticwebassets\\OxyPlot.Blazor.js",
+      "SourceId": "OxyPlot.Blazor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\alena\\.nuget\\packages\\oxyplot.blazor\\2.5.9\\staticwebassets\\",
+      "BasePath": "_content/OxyPlot.Blazor",
+      "RelativePath": "OxyPlot.Blazor.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\alena\\.nuget\\packages\\oxyplot.blazor\\2.5.9\\staticwebassets\\OxyPlot.Blazor.js"
+    }
+  ]
+}

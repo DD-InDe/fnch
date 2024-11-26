@@ -1,0 +1,101 @@
+﻿@page "/home"
+@using EAS_Hub.Services
+
+<PageTitle>Домашнаяя страница</PageTitle>
+
+<div class="vertical-div">
+    <div style="height: 100px;display: grid; grid-template-columns: 1fr 1fr">
+        <div style="background: black; align-self: center;color: white; width: 100px; height: 25px">ЛОГО</div>
+        <label style="align-self: end">ФИО</label>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 3fr">
+        <div class="vertical-div">
+            @if (AuthService.Employee is { PositionId: 1 or 2 or 3 })
+            {
+                <button @onclick="() => selectedModule = 0">Адаптационные модули</button>
+            }
+            else
+            {
+                <button @onclick="() => selectedModule = 1">Согласование модулей</button>
+            }
+        </div>
+        @if (selectedModule == 0)
+        {
+            @* <DevelopModule/> *@
+        }
+        else
+        {
+            @* <AcceptModules/> *@
+        }
+    </div>
+</div>
+
+@* <div class="vertical-div"> *@
+@*     <div style="display: grid; grid-template-columns: 1fr 1fr"> *@
+@*         <button id="module-1" *@
+@*                 @onclick="() => selectedModule = 0"> *@
+@*             <label style="padding: 5px;margin: 5px;border-radius: 100%; background: orange">@_develop</label> *@
+@*             Адаптационные модули *@
+@*         </button> *@
+@*         <button id="module-2" *@
+@*                 @onclick="() => selectedModule = 1"> *@
+@*             <label style="padding: 5px;margin: 5px;border-radius: 100%; background: orange">@_access</label> *@
+@*             Согласование модулей *@
+@*         </button> *@
+@*     </div> *@
+@* *@
+@*     @if (selectedModule == 0 && AuthService.Employee != null) *@
+@*     { *@
+@*         <DevelopModules/> *@
+@*     } *@
+@*     else if (AuthService.Employee != null) *@
+@*     { *@
+@*         <AcceptModules/> *@
+@*     } *@
+@*     else *@
+@*     { *@
+@*         <a href="/">Авторизация</a> *@
+@*     } *@
+@* </div> *@
+
+@code
+{
+    private int selectedModule = 0;
+    int _access = 0;
+    int _develop = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            if (AuthService.Employee != null)
+            {
+                if (AuthService.Employee.PositionId is 1 or 2 or 3)
+                    {
+                    _develop = (await FormationService.GetDevModules(AuthService.Employee.Id, AuthService.Employee.Jwt))
+                        .Where(c => c.StatusId is 1 or 2)
+                        .ToList()
+                        .Count;
+                }
+
+                if (AuthService.Employee.PositionId is 4)
+                    _access = (await FormationService.GetAccessModules(AuthService.Employee.Id, AuthService.Employee.Jwt)).Count;
+            }
+            else
+                Navigation.NavigateTo("/");
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            Navigation.NavigateTo("unauthorized");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (AuthService.Employee == null) Navigation.NavigateTo("/"); 
+    }
+}

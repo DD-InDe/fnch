@@ -1,0 +1,181 @@
+﻿@page "/develop-module/{ModuleId:int}"
+
+<div class="vertical-div">
+    <label class="label-message" @onclick="() => _message = string.Empty">@_message</label>
+    @if (_loaded)
+    {
+        <div class="vertical-div border-div">
+            <h3>Общая информация</h3>
+
+            <form method="post"
+                  class="vertical-div"
+                  @formname="edit-form"
+                  @onsubmit="SaveData">
+                <AntiforgeryToken/>
+
+                <label>Название:</label>
+                <input @bind="_module.Name"
+                       id="module-name"
+                       type="text"/>
+                <label>Срок прохождения (в днях):</label>
+                <input @bind="_module.CompleteDeadline"
+                       id="module-deadline"
+                       type="number"/>
+                <label>Источник данных:</label>
+                <input @bind="_module.Source"
+                       id="module-source"
+                       type="text"/>
+                <label>Ответственное лицо:</label>
+                <select id="module-employee"
+                        required
+                        @bind="_module.ResponsibleEmployeeId">
+                    @foreach (var item in _employees)
+                    {
+                        <option value="@item.Id">@item.FullName</option>
+                    }
+                </select>
+                <label>Должности:</label>
+                <div class="vertical-div">
+                    @foreach (var item in _accesses)
+                    {
+                        <label>
+                            @item.Position.Name
+                            <input type="checkbox"
+                                   @bind="@item.IsChecked"/>
+                        </label>
+                    }
+                </div>
+                <label>Предыдущий модуль:</label>
+                <select id="module-last"
+                        @bind="_module.PreviousId">
+                    <option>нет</option>
+                    @foreach (var module in _modules)
+                    {
+                        <option value="@module.Id"
+                                disabled="@(module.Id == _module.Id)">@module.Name</option>
+                    }
+                </select>
+
+                <input type="submit"
+                       value="Сохранить изменения"/>
+                <input type="button"
+                       @onclick="SendToAccess"
+                       value="Отправить на согласование"/>
+            </form>
+        </div>
+        <div class="vertical-div">
+            <h3>Мероприятия</h3>
+            <form method="post"
+                  @onsubmit="AddEvent"
+                  @formname="event-form">
+                <AntiforgeryToken/>
+
+                <input id="event-name"
+                       required
+                       placeholder="Название"
+                       @bind="_event.Name"
+                       type="text"/>
+                <input id="event-desc"
+                       required
+                       placeholder="Описание"
+                       @bind="_event.Description"
+                       type="text"/>
+                <select id="event-type"
+                        required
+                        placeholder="Тип"
+                        @bind="_event.TypeId">
+                    <option value=""
+                            selected
+                            disabled>Тип мероприятия</option>
+                    @foreach (var item in _eventTypes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <input type="submit"
+                       value="Добавить"/>
+            </form>
+            @foreach (var item in _events)
+            {
+                <li>@item.Name - @item.Description (@item.Type.Name)</li>
+            }
+        </div>
+        <div class="vertical-div">
+            <h3>Тестирования</h3>
+            <form method="post"
+                  @onsubmit="AddQuestion"
+                  @formname="test-form">
+                <AntiforgeryToken/>
+
+                <input id="test-text"
+                       required
+                       placeholder="Вопрос"
+                       @bind="_newQuestion.Text"
+                       type="text"/>
+                <input id="test-answer"
+                       required
+                       placeholder="Ответ"
+                       @bind="_newQuestion.Answer"
+                       type="text"/>
+                <select id="test-type"
+                        required
+                        @bind="_newQuestion.TypeId">
+                    @foreach (var item in _testingTypes)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <input type="submit"
+                       value="Добавить"/>
+            </form>
+            @foreach (var item in _questions)
+            {
+                <li>@item.Text - @item.Answer (@item.Testing.Type.Name)</li>
+            }
+        </div>
+        <div class="vertical-div">
+            <h3>Материалы</h3>
+            <form method="post"
+                  @onsubmit="AddMaterial"
+                  @formname="material-form">
+                <AntiforgeryToken/>
+
+                <input id="material-name"
+                       required
+                       placeholder="Название"
+                       @bind="_material.MaterialName"
+                       type="text"/>
+                <input id="material-url"
+                       placeholder="Ссылка"
+                       @bind="_material.Url"
+                       type="text"/>
+                <InputFile id="material-file"
+                           accept=".pdf, .pptx, .xlsx, .docx, .jpg, .mkv, .avi, .mp"
+                           OnChange="LoadFile"/>
+                <input type="submit"
+                       value="Добавить"/>
+            </form>
+            @foreach (var item in _materials)
+            {
+                <li>@item.MaterialName</li>
+            }
+        </div>
+    }
+    else
+    {
+        <h4>нет данных</h4>
+    }
+</div>
+
+<style>
+    .border-div {
+        border: black solid 1px;
+    }
+
+    .label-message {
+        position: fixed;
+        top: 10px;
+        right: 30px;
+        background: gray;
+    }
+</style>

@@ -1,0 +1,85 @@
+﻿<Page x:Class="EAS_Desktop.Pages.ConstructorPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:EAS_Desktop.Pages"
+      mc:Ignorable="d"
+      Title="Конструктор"
+      Loaded="ConstructorPage_OnLoaded"
+      d:DesignHeight="450"
+      d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="Общая информация"
+                       TextAlignment="Center" />
+
+            <TextBlock Text="Сотрудник:" />
+            <ComboBox x:Name="EmployeeComboBox"
+                      DisplayMemberPath="FullName" />
+            <TextBlock Text="Отдел:" />
+            <ComboBox x:Name="DepComboBox"
+                      DisplayMemberPath="Name" />
+            <TextBlock Text="Должность:" />
+            <ComboBox x:Name="PosComboBox"
+                      SelectionChanged="PosComboBox_OnSelectionChanged"
+                      DisplayMemberPath="Name" />
+
+            <Button x:Name="SaveButton"
+                    Content="Сформировать программу"
+                    Click="SaveButton_OnClick" />
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical"
+                    Grid.Column="1">
+            <TextBlock Text="Модули"
+                       TextAlignment="Center" />
+
+            <ItemsControl x:Name="ModulesControl">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical">
+                                <Button x:Name="TopButton"
+                                        Content="⬆️"
+                                        Click="Top_OnClick" />
+                                <Button x:Name="DownButton"
+                                        Click="Down_OnClick"
+                                        Content="⬇️" />
+                            </StackPanel>
+                            <ToggleButton IsChecked="{Binding IsChecked}"
+                                          Content="{Binding Module.Name}">
+                                <ToggleButton.ToolTip>
+                                    <ToolTip>
+                                        <ToolTip.Content>
+                                            <TextBlock>
+                                                <TextBlock.Inlines>
+                                                    <Run Text="Кодовое название:" />
+                                                    <Run Text="{Binding Module.CodeName}" />
+                                                    <LineBreak />
+                                                    <Run Text="Название:" />
+                                                    <Run Text="{Binding Module.Name}" />
+                                                    <LineBreak />
+                                                    <Run Text="Срок прохождения:" />
+                                                    <Run Text="{Binding Module.CompleteDeadline}" />
+                                                </TextBlock.Inlines>
+                                            </TextBlock>
+                                        </ToolTip.Content>
+                                    </ToolTip>
+                                </ToggleButton.ToolTip>
+                            </ToggleButton>
+                            <ComboBox ItemsSource="{Binding Employees}"
+                                      SelectedItem="{Binding Employee}"
+                                      DisplayMemberPath="FullName" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</Page>

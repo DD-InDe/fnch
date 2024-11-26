@@ -1,0 +1,28 @@
+﻿<div class="vertical-div">
+    <h3>Модули на согласовании</h3>
+
+    @if (modules != null)
+    {
+        @if (modules.Count != 0)
+        {
+            @foreach (var module in modules)
+            {
+                <div class="vertical-div"
+                     style="border: black solid 1px;background-color: @StatusColor(module.Module); color: black">
+                    <label>Название: @(module.Module.Name ?? "без названия")</label>
+                    <label>Сроки: @module.Module.DevelopDeadline</label>
+                    <label>Разработчики:</label>
+                    @foreach (var item in module.Developers)
+                    {
+                        <li>@item.FullName</li>
+                    }
+                    <a id="info" href="/info-module/mode=ACCEPT/@module.Module.Id">Информация</a>
+                </div>
+            }
+        }
+        else
+        {
+            <em>Данных нет</em>
+        }
+    }
+</div>

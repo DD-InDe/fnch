@@ -1,0 +1,57 @@
+﻿@page "/"
+@using EAS_Hub.DbModels
+@using EAS_Hub.Services
+<PageTitle>Вход в систему</PageTitle>
+
+<form class="vertical-div"
+      @onsubmit="LogIn"
+      @formname="auth-form">
+    <h3>Авториозация</h3>
+
+    <input id="login"
+           type="text"
+           required
+           @bind="login"/>
+    <input id="password"
+           required
+           type="password"
+           @bind="password"/>
+
+    <input id="submit"
+           type="submit"
+           value="Войти"/>
+    
+    <h4 style="color: orange">@message</h4>
+</form>
+
+@code {
+    private string login { get; set; }
+    private string password { get; set; }
+
+    private string message = "";
+
+    private async Task LogIn()
+    {
+        try
+        {
+            Employee? employee = await AuthorizationService.LogIn(login, password);
+            if (employee != null)
+            {
+                if (employee.PositionId is 1 or 2 or 3 or 4)
+                {
+                    AuthService.Employee = employee;
+                    Navigation.NavigateTo("/home");
+                }
+                else
+                    message = "У вас нет доступа";
+            }
+            else
+                message = "Пользователь не найден";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    }
+
+}
